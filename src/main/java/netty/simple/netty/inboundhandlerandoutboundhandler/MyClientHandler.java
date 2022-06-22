@@ -15,8 +15,10 @@ import java.nio.charset.Charset;
  */
 public class MyClientHandler extends SimpleChannelInboundHandler<Long> {
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Long aLong) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Long msg) throws Exception {
 
+        System.out.println("服务器IP：" + ctx.channel().remoteAddress());
+        System.out.println("收到服务器消息："+ msg);
     }
 
     // 重写channelActive 发送数据
@@ -24,7 +26,7 @@ public class MyClientHandler extends SimpleChannelInboundHandler<Long> {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("MyClientHandler 发送数据");
 //        ctx.writeAndFlush(Unpooled.copiedBuffer(""));
-//        ctx.writeAndFlush(123456l); // 发送的是一个Long
+        ctx.writeAndFlush(123456l); // 发送的是一个Long
 
         /**
          * 分析
@@ -59,6 +61,6 @@ public class MyClientHandler extends SimpleChannelInboundHandler<Long> {
          *                 ctx.write(msg, promise);
          *             }
          */
-        ctx.writeAndFlush(Unpooled.copiedBuffer("abcdabcdabcdabcd", CharsetUtil.UTF_8));
+//        ctx.writeAndFlush(Unpooled.copiedBuffer("abcdabcdabcdabcd", CharsetUtil.UTF_8));
     }
 }
