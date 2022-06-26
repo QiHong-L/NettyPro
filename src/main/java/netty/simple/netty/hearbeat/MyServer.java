@@ -44,7 +44,7 @@ public class MyServer {
                              * 5. 当 IdleStateEvent 出发后，就会传递给管道 的下一个 handler 去处理
                              * 通过调用（出发）下一个handler的 userEventTiggered，在改方法中去处理 IdleStateEvent（读空闲，写空闲，读写空闲）
                              */
-                            pipeline.addLast(new IdleStateHandler(3,5,7, TimeUnit.SECONDS));
+                            pipeline.addLast(new IdleStateHandler(10,7000,7000, TimeUnit.SECONDS));
                             // 加入一个队空闲检测进一步处理的handler（自定义）
                             pipeline.addLast(new MyServerHandler());
                         }
